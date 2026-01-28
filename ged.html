@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icône SVG Animée - Correction Vide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes slidePaper {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); } /* J'ai augmenté un peu l'amplitude maintenant que c'est safe */
+        }
+
+        .icon-container {
+            transform-origin: center;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .folder-paper {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slidePaper 3s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        /* Au survol, on peut faire sortir la feuille encore plus haut sans peur du vide */
+        .icon-svg:hover .folder-paper {
+            transform: translateY(-12px);
+            animation-play-state: paused;
+        }
+
+        .icon-svg {
+            overflow: visible;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <svg class="icon-svg w-32 h-32 drop-shadow-xl" viewBox="-10 -15 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="icon-container">
+            <!-- 1. Fond du dossier (Arrière-plan) -->
+            <path d="M0 17.976V1.9974C0 1.46766 0.21044 0.95961 0.585025 0.585025C0.95961 0.21044 1.46766 0 1.9974 0H9.42C9.79069 0.000493954 10.1539 0.104134 10.4691 0.299322C10.7842 0.49451 11.0388 0.773545 11.2044 1.1052L12.2844 3.2556C12.3946 3.47747 12.5645 3.6642 12.775 3.79479C12.9855 3.92538 13.2283 3.99464 13.476 3.9948H31.2912C31.8209 3.9948 32.329 4.20524 32.7036 4.57982C33.0782 4.95441 33.2886 5.46246 33.2886 5.9922V6.66L0 17.976Z" fill="#E5712E"/>
+            
+            <!-- 
+                2. LE PAPIER (Jaune) - MODIFIÉ 
+                J'ai changé le tracé (path) pour qu'il descende jusqu'à Y=32 (au lieu de s'arrêter à 14).
+                Maintenant il est physiquement plus long, mais la partie basse est cachée par la pochette devant.
+            -->
+            <path class="folder-paper" d="M4.66049 6.65771H33.9543C34.484 6.65771 34.9921 6.86815 35.3667 7.24274C35.7412 7.61732 35.9517 8.12537 35.9517 8.65512V32H2.66309V8.65512C2.66309 8.12537 2.87353 7.61732 3.24811 7.24274C3.6227 6.86815 4.13074 6.65771 4.66049 6.65771Z" fill="#F9EAB0"/>
+
+            <!-- 3. Pochette avant (Premier plan) -->
+            <path d="M2.6628 14.6465H35.9514C36.6576 14.6465 37.3349 14.927 37.8343 15.4264C38.3337 15.9258 38.6142 16.6031 38.6142 17.3093V34.6193C38.6142 35.6787 38.1934 36.6947 37.4444 37.4438C36.6953 38.193 35.6794 38.6139 34.62 38.6141H3.9948C3.4702 38.6141 2.95073 38.5108 2.46606 38.31C1.98138 38.1092 1.541 37.815 1.17005 37.444C0.42088 36.6949 0 35.6788 0 34.6193V17.3093C0 16.6031 0.280544 15.9258 0.779916 15.4264C1.27929 14.927 1.95658 14.6465 2.6628 14.6465Z" fill="#F98039"/>
+            
+            <!-- 4. Détail gris -->
+            <path d="M34.2002 26.0146H20.4002C19.7375 26.0146 19.2002 26.5519 19.2002 27.2146V33.8146C19.2002 34.4774 19.7375 35.0146 20.4002 35.0146H34.2002C34.8629 35.0146 35.4002 34.4774 35.4002 33.8146V27.2146C35.4002 26.5519 34.8629 26.0146 34.2002 26.0146Z" fill="#394754"/>
+        </g>
+    </svg>
+
+</body>
+</html>
